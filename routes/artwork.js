@@ -3,6 +3,20 @@ const router = express.Router();
 
 const db = require("../models");
 
+/* GET All Artwork */
+router.get('/', function(req, res, next) {
+  
+  db.Artwork.findAll({})
+    .then((artworks) =>{
+      res.render('index', 
+        { 
+          title: "L'Artiste",
+          artworks: artworks
+        });
+  })
+  
+});
+
 /* GET artwork by id */
 router.get('/:id', function(req, res, next) {
   
