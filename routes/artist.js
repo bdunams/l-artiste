@@ -3,8 +3,26 @@ const router = express.Router();
 
 const db = require("../models");
 
-/* GET artist */
-router.get('/artists/:name', function(req, res, next) {
+
+/* GET All Artists */
+router.get('/', function(req, res, next) {
+  
+  db.Artist.findAll({
+    include:{
+      model: db.Artwork
+    }
+  }).then((artists) =>{
+    res.render('index', 
+      { 
+        title: "L'Artiste",
+        artists: artists
+      });
+  })
+  
+});
+
+/* GET an artist by name */
+router.get('/:name', function(req, res, next) {
   
   db.Artist.findOne({
     where: {
@@ -14,24 +32,28 @@ router.get('/artists/:name', function(req, res, next) {
       model: db.Artwork
     }
   }).then((artist) =>{
+    console.log(artist)
     
-//    db.Artwork.findAll({
-//      where: {
-//        id: artist.id
-//      },
+    db.Artwork.findAll({
+      where: {
+        id: artist.dataValues.id
+      },
 //      include:{
 //        model: db.Rating
 //      }
-//    }.then(() => {})
+    }).then((artworks) => {
     
-    res.render('artist', 
+    res.render('artists', 
       {
         title: "L'Artiste",
       
-        artist: artist
+        artist: artist,
+                       
+        artworks: artworks
       });
-  });
-  
+      
+    });
+  }) 
 });
 
 module.exports = router;

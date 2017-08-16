@@ -25,6 +25,7 @@ INSERT INTO artworks (title, category, description, media, rating, price, Artist
 INSERT INTO artworks (title, category, description, media, rating, price, ArtistId) VALUES ();
 
 
+
 INSERT INTO users (name, email, password) VALUES ("Bob Smith", "bsmith@gmail.com", "123789");
 INSERT INTO users (name, email, password) VALUES ("Mary Jones", "m_jones@yahoo.com", "444nnn");
 INSERT INTO users (name, email, password) VALUES ("Dougie Doug", "bigDoug@gmail.com", "654qwert");

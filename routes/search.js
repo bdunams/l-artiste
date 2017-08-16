@@ -12,6 +12,9 @@ router.post('/search', function(req, res, next) {
     
     res.redirect(`/artwork/${req.body.id}`);
   }
+  else if(req.body.seachType === 'category'){
+    
+  }
   
 });
 

@@ -5,7 +5,7 @@ const passport = require('passport');
 const db = require("../models");
 
 /* GET home page. */
-router.post('/login',
+router.post('/',
   passport.authenticate('local', 
       { 
         successRedirect: '/',

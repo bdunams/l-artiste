@@ -1,0 +1,21 @@
+<a href="/"><h1>{{title}}</h1></a>
+
+<p>Welcome to {{title}}</p>
+
+
+<p>{{artist.id}}. {{artist.name}}</p>
+
+<p>Bio: {{artist.bio}}</p>
+
+
+<h3>{{artist.name}} Artworks</h3>
+
+{{#each artworks}}
+
+  <div>
+    <a href="/artworks/{{this.id}}"><img style="max-width:350px" class="art-photo" src="{{this.media}}"></a>
+
+    {{this.id}}. {{this.title}} - {{this.category}}
+  </div>
+
+{{/each}}

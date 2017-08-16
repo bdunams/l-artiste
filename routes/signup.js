@@ -4,7 +4,7 @@ const router = express.Router();
 const db = require("../models");
 
 /* GET home page. */
-router.post('/signup', function(req, res, next) {
+router.post('/', function(req, res, next) {
   
   // if sign up type is artist
   // create new artist account
@@ -14,14 +14,15 @@ router.post('/signup', function(req, res, next) {
       where: {
         name: req.body.name,
         email: req.body.email,
-        password: req.body.password
+        password: req.body.password,
+        bio: req.body.bio
       }
     })
     .spread((artist, created) => {
 
       console.log(created);
       
-      res.redirect(`/artwork/${artist.id}`);
+      res.redirect(`/artists/${artist.name}`);
     })
     
   }
