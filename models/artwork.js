@@ -41,7 +41,7 @@ module.exports = function(sequelize, DataTypes) {
 		// associates Artwork with Artist
 		Artwork.belongsTo(models.Artist, {
 			foreignKey: {
-		    	allowNull: false
+		    	allowNull: true
 		    }
 		});
 	};

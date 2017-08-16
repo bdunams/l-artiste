@@ -16,6 +16,7 @@ let logout = require('./routes/logout');
 let signup = require('./routes/signup');
 let search = require('./routes/search');
 
+
 // Models
 let db = require('./models');
 
@@ -65,8 +66,9 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
+
 db.sequelize.sync(
 //  { force: true}
-)// added this
+);
 
 module.exports = app;
