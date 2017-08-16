@@ -14,6 +14,8 @@ let login = require('./routes/login');
 let logout = require('./routes/logout');
 let signup = require('./routes/signup');
 
+let db = require('./models');
+
 let app = express();
 
 // view engine setup
@@ -52,6 +54,6 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-db.sequelize.sync({ force: true})// added this
+db.sequelize.sync({  })// added this - can add force: true to clear out database
 
 module.exports = app;
