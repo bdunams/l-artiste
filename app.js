@@ -54,6 +54,6 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-db.sequelize.sync({ force: true})// added this
+db.sequelize.sync({  })// added this - can add force: true to clear out database
 
 module.exports = app;

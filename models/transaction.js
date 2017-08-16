@@ -7,7 +7,7 @@ module.exports = function(sequelize, DataTypes) {
 				len: [1]
 			}
 		},
-		price: {
+		total: {
 			type: DataTypes.DECIMAL(10,2),
 			allowNull: false,
 			isNumeric: true
@@ -33,6 +33,7 @@ module.exports = function(sequelize, DataTypes) {
 				allowNull: false
 			}
 		});
+		
 	};
 
 	return Transactions;
