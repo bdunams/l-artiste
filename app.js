@@ -68,7 +68,7 @@ app.use(function(err, req, res, next) {
 
 
 db.sequelize.sync(
-//  { force: true}
+  { force: true}
 );
 
 module.exports = app;
