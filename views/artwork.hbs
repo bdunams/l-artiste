@@ -5,9 +5,13 @@
 
 <img style="max-width: 500px" class="art-photo" src="{{artwork.media}}">
 
-<a href="/artists/{{artwork.Artist.name}}">
-    <p>Artist: {{artwork.Artist.name}}</p>
-  </a>
+
+    <p>Artist:
+      <a href="/artists/{{artwork.Artist.name}}">
+        {{artwork.Artist.name}}
+      </a>
+    </p>
+  
 
 <p>
   {{artwork.id}}. Title:{{artwork.title}} 
