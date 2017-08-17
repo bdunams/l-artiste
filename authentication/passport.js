@@ -50,20 +50,23 @@ module.exports = function(app){
   // Authentication Strategy
   passport.use(new LocalStrategy(
     function(email, password, done) {
-      console.log(req.body.email, req.body.password);
       console.log(email, password);
-      db.User.findOne({ email: email }, function(err, user) {
-        console.log(err);
-        if (err) { 
-          done(null, false, { message: 'Unknown User' })
-        }
+      db.User.findOne({where: { email: email }}).then(function(user) {
+        console.log(user)
         if (!user) {
           return done(null, false, { message: 'Incorrect email.' });
         }
-        if (!user.validPassword(password)) {
+        if (user.password !== password) {
           return done(null, false, { message: 'Incorrect password.' });
         }
         return done(null, user);
+      }).catch(err => {
+        
+        console.log(err, " ...");
+        if (err) { 
+          done(null, false, { message: 'Unknown User' })
+        }
+        
       });
     }
   ));
@@ -74,7 +77,7 @@ module.exports = function(app){
   });
 
   passport.deserializeUser(function(id, done) {
-    User.findById(id, function(err, user) {
+    db.User.findById(id, function(err, user) {
       done(err, user);
     });
   });
