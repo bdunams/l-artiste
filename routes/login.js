@@ -4,12 +4,17 @@ const passport = require('passport');
 
 const db = require("../models");
 
-/* GET home page. */
+/* GET Login Page */
+router.get('/', function(req, res, next) {
+  res.render('login');
+})
+
+/* POST L */
 router.post('/',
   passport.authenticate('local', 
       { 
         successRedirect: '/',
-        failureRedirect: '/login',
+        failureRedirect: '/',
         failureFlash: true 
       })
 );

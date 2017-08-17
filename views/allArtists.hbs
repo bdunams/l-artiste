@@ -1,0 +1,14 @@
+<a href="/"><h1>{{title}}</h1></a>
+
+
+<h3>Top Artists</h3>
+{{#each artists}}
+
+<div>
+  <a href="/artists/{{this.name}}">{{this.name}}</a>
+
+  {{this.id}}. {{this.name}} - {{this.category}}
+</div>
+<br>
+
+{{/each}}

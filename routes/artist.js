@@ -12,7 +12,7 @@ router.get('/', function(req, res, next) {
       model: db.Artwork
     }
   }).then((artists) =>{
-    res.render('index', 
+    res.render('allArtists', 
       { 
         title: "L'Artiste",
         artists: artists

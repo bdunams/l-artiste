@@ -7,7 +7,7 @@ let cookieParser = require('cookie-parser');
 let bodyParser = require('body-parser');
 let session = require('express-session');
 
-// Routes
+// Route Files
 let index = require('./routes/index');
 let artist = require('./routes/artist');
 let artwork = require('./routes/artwork');
@@ -38,6 +38,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Routing
 app.use('/', index);
 app.use('/artists', artist);
 app.use('/artworks', artwork);
