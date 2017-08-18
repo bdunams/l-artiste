@@ -17,6 +17,17 @@ router.get('/', function(req, res, next) {
   
 });
 
+/* GET new art page */
+router.get('/new-art', function(req, res, next) {
+  
+  res.render('create-shop', 
+    { 
+      title: "L'Artiste",
+      artworks: artworks
+    });
+  
+});
+
 /* GET artwork by id */
 router.get('/:id', function(req, res, next) {
   

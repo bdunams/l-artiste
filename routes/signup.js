@@ -8,7 +8,7 @@ const db = require("../models");
 
 /* GET Register Page */
 router.get('/', function(req, res, next) {
-  res.render('register');
+  res.render('login');
 })
 
 /* POST New User to DB After Validation */

@@ -14,7 +14,7 @@ router.post('/',
   passport.authenticate('local', 
       { 
         successRedirect: '/',
-        failureRedirect: '/artists',
+        failureRedirect: '/login',
         failureFlash: true 
       })
 );
