@@ -7,6 +7,10 @@ let cookieParser = require('cookie-parser');
 let bodyParser = require('body-parser');
 let session = require('express-session');
 
+// Testing
+let chai = require('chai');
+let mocha = require('mocha');
+
 // Route Files
 let index = require('./routes/index');
 let artist = require('./routes/artist');
