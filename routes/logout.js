@@ -4,7 +4,7 @@ const router = express.Router();
 const db = require("../models");
 
 /* GET home page. */
-router.post('/', function(req, res, next){
+router.get('/', function(req, res, next){
             
   req.logout();
             

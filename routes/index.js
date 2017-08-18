@@ -6,6 +6,8 @@ const db = require("../models");
 /* GET home page. */
 router.get('/', function(req, res, next) {
   
+  console.log(req.user)
+  
   db.Artwork.findAll({
     limit: 8,
     include:{

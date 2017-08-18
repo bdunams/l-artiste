@@ -52,7 +52,6 @@ module.exports = function(app){
     function(email, password, done) {
       console.log(email, password);
       db.User.findOne({where: { email: email }}).then(function(user) {
-        console.log(user)
         if (!user) {
           return done(null, false, { message: 'Incorrect email.' });
         }
@@ -77,8 +76,10 @@ module.exports = function(app){
   });
 
   passport.deserializeUser(function(id, done) {
-    db.User.findById(id, function(err, user) {
-      done(err, user);
+    db.User.findById(id).then(function(user) {
+      done(null, user);
+    }).catch(function(err) {
+      done(err, null)
     });
   });
 }
