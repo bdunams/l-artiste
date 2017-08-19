@@ -9,10 +9,4 @@ describe("Search", function() {
       search("P1ca550");
     }).should.throw(Error);
   });
-
-
-  // Cannot get the following test to work
-  /*it("should ignore upcase letters", function() {
-    search("Picasso").should.equal("picasso");
-  });*/
 });
