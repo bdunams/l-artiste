@@ -1,7 +1,7 @@
 {
   "development": {
     "username": "root",
-    "password": "Mutlaq66",
+    "password": "",
     "database": "lartiste",
     "host": "127.0.0.1",
     "dialect": "mysql"
@@ -14,10 +14,13 @@
     "dialect": "mysql"
   },
   "production": {
-    "username": "root",
-    "password": null,
-    "database": "database_production",
-    "host": "127.0.0.1",
+    "username": "b3833ce92b7761",
+    "password": "478ee3a3",
+    "database": "heroku_116087d05e8168e",
+    "host": "us-cdbr-iron-east-05.cleardb.net",
     "dialect": "mysql"
   }
 }
+
+
+'mysql://b3833ce92b7761:478ee3a3@us-cdbr-iron-east-05.cleardb.net/heroku_116087d05e8168e?reconnect=true'
