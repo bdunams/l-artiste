@@ -6,8 +6,6 @@ const db = require("../models");
 /* GET home page. */
 router.get('/', function(req, res, next) {
   
-  console.log(req.user)
-  
   db.Artwork.findAll({
     limit: 8,
     include:{
@@ -24,6 +22,17 @@ router.get('/', function(req, res, next) {
       });
   })
   
+});
+
+router.get('/user/account', function(req, res, next) {
+  
+  if(req.user){
+    res.render('account');
+  }
+  else{
+    res.redirect('/');
+  }
+    
 });
 
 module.exports = router;

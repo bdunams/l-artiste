@@ -15,7 +15,7 @@ router.post('/',
       { 
         successRedirect: '/',
         failureRedirect: '/login',
-        failureFlash: true 
+        failureFlash: true
       })
 );
 

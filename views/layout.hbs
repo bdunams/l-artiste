@@ -41,11 +41,36 @@
 					<div class="container">
 						<div class="row">
 							<nav>
-								<div class=“header_user_info”>
-                                        <a class=“login” href="/login" rel=“nofollow” title=“Log in to your account”>
-                                        Sign In / Sign Up
-                                    </a>
+								
+                              {{#if user}}
+                              
+                                <div class="header_user_info">
+                                    <a class="login btn" href="/logout" rel="nofollow" title="Log out">
+                                      Logout
+                                  </a>
 								</div>
+                              
+                                <div class="header_user_info">
+                                  <a class="login btn" href="#" rel="nofollow" title="Log in to your account">
+                                      Welcome back, {{user.name}}
+                                  </a>
+                                </div>
+                              
+                              {{else}}
+                              
+                                <div class="header_user_info">
+                                    <a class="login btn" href="/login" rel="nofollow" title="Log in to your account">
+                                      Sign In / Sign Up
+                                  </a>
+                                </div>
+                              
+                                <div class="header_user_info">
+                                    <a class="login btn" href="/login" rel="nofollow" title="Log in to your account">
+                                        Welcome!{{user.name}}
+                                    </a>
+                                  </div>
+                              
+                              {{/if}}
 							</nav>
 								</div>
 							</div>
@@ -60,11 +85,11 @@
 								</div>
 
 								<div id="search_block_top" class="col-sm-4 clearfix">
-									<form id="searchbox" method="get" action="//cc.clearviewstudios.com/search" >
-										<input type="hidden" name="controller" value="search" />
+									<form id="searchbox" method="post" action="/search" >
+										<input type="hidden" name="searchType" value="artist" />
 										<input type="hidden" name="orderby" value="position" />
 										<input type="hidden" name="orderway" value="desc" />
-										<input class="search_query form-control" type="text" id="search_query_top" name="search_query" placeholder="Search" value="" />
+										<input class="search_query form-control" type="text" id="search_query_top" name="search" placeholder="Search" value="" />
 										<button type="submit" name="submit_search" class="btn btn-default button-search">
 											<span>Search</span>
 										</button>
@@ -74,14 +99,23 @@
 
 						<div class="col-sm-4 clearfix">
 							<div class="shopping_cart">
-							<a href="cart.html" title="View my shopping cart" rel="nofollow">
+							<a href="/cart/" title="View my shopping cart" rel="nofollow">
 								<i style="margin-right: 10px" class="fa fa-shopping-cart fa-lg"></i><b>Cart</b>
 								<span class="ajax_cart_quantity unvisible">0</span>
 								<span class="ajax_cart_product_txt unvisible">Product</span>
 								<span class="ajax_cart_product_txt_s unvisible">Products</span>
 								<span class="ajax_cart_total unvisible">
 									</span>
-								<span class="ajax_cart_no_product">(empty)</span>
+                                {{#if cartCount}}
+                              
+                                  <span class="ajax_cart_no_product">{{cartCount}}</span>
+                                
+                                {{else}}
+                              
+                                  <span class="ajax_cart_no_product"></span>
+                              
+                                {{/if}}
+								
 										</a>
 								<div class="cart_block block exclusive">
 									<div class="block_content">
@@ -128,11 +162,19 @@
 						<div id="block_top_menu" class="sf-contener clearfix col-lg-12">
 							<div class="cat-title">Menu</div>
 							<ul class="sf-menu clearfix menu-content">
-								<li><a href="/artworks" title="ART">ART</a></li>
-								<li><a href="/artists" title="ARTISTS">ARTISTS</a></li>
-								<li><a href="/" title="ABOUT">ABOUT</a></li>
-								<li><a href="/" title="CONTACT">CONTACT</a></li>
-										</ul>
+								<li><a href="/artists" title=“ARTISTS”>ARTISTS</a></li>
+                                <li><a href="/artworks" title=“ARTWORKS”>ALL ART</a></li>
+                                <li><a href="/artworks/category/painting" title=“ART”>PAINTINGS</a></li>
+                                <li><a href="/artworks/category/ceramics" title=“ART”>CERAMICS</a></li>
+                                <li><a href="/artworks/category/photography" title=“ART”>PHOTOGRAPHY</a></li>
+                                <li><a href="/artworks/category/sculpture" title=“ART”>SCULPTURES</a></li>
+                                {{#if user}}
+                                  
+                                  <li><a href="/artworks/new-art" title="ADD">Add Art</a></li>
+                              
+                                  <li><a href="/user/account" title="ACCOUNT">ACCOUNT SETTING</a></li>
+                                {{/if}}
+                            </ul>
 						</div>
 
 						</div>
@@ -207,7 +249,7 @@
 													
 					<li >
 						<a 
-						href="LINK TO PAINTINGS" title="">
+						href="/artworks/category/painting" title="">
 							Paintings
 						</a>
 						</li>
@@ -216,7 +258,7 @@
 																					
 					<li >
 						<a 
-						href="LINK TO Ceramics" title="">
+						href="/artworks/category/ceramics" title="">
 							Ceramics
 						</a>
 						</li>
@@ -225,7 +267,7 @@
 																					
 					<li >
 						<a 
-						href="LINK TO Photography" title="">
+						href="/artworks/category/photography" title="">
 							Photography
 						</a>
 						</li>
@@ -234,8 +276,8 @@
 																					
 					<li class="last">
 						<a 
-						href="LINK TO Stained Glass" title="">
-							Stained Glass
+						href="/artworks/category/sculpture" title="">
+							Sculptures
 						</a>
 						</li>
 

@@ -8,14 +8,16 @@ const expressValidator = require('express-validator');
 const flash = require('connect-flash');
 const bcrypt = require('bcryptjs');
 let salt = bcrypt.genSaltSync(10);
-let hash = bcrypt.hashSync('password', salt);
+
 
 const db = require("../models");
 
 
 // Authentication Middleware
 module.exports = function(app){
-  
+  let hash = bcrypt.hashSync('brian', salt);
+  app.locals.hash = hash;
+  console.log(app.locals.hash)
   app.use(session({ 
     secret: 'secret',
     saveUninitialized: true,
@@ -50,8 +52,13 @@ module.exports = function(app){
   // Authentication Strategy
   passport.use(new LocalStrategy(
     function(email, password, done) {
-      console.log(email, password);
+      console.log('------------LOGIN----------------')
+      
       db.User.findOne({where: { email: email }}).then(function(user) {
+        let hash = bcrypt.hashSync(password, salt);
+        console.log(bcrypt.compareSync(user.password, app.locals.hash));
+        console.log(user.password, app.locals.hash);
+        
         if (!user) {
           return done(null, false, { message: 'Incorrect email.' });
         }

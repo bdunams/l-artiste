@@ -6,9 +6,13 @@ const db = require("../models");
 /* GET All Artwork */
 router.get('/', function(req, res, next) {
   
-  db.Artwork.findAll({})
+  db.Artwork.findAll({
+    include:{
+      model: db.Artist
+    },
+  })
     .then((artworks) =>{
-      res.render('index', 
+      res.render('search-category', 
         { 
           title: "L'Artiste",
           artworks: artworks
@@ -20,11 +24,7 @@ router.get('/', function(req, res, next) {
 /* GET new art page */
 router.get('/new-art', function(req, res, next) {
   
-  res.render('create-shop', 
-    { 
-      title: "L'Artiste",
-      artworks: artworks
-    });
+  res.render('create-shop');
   
 });
 
@@ -65,13 +65,14 @@ router.get('/category/:category', function(req, res, next) {
       ['rating', 'DESC']
     ]
   }).then((artworks) =>{
-    console.log(artworks)
     res.render('search-category', 
       { 
         title: "L'Artiste",
         category: artworks[1].dataValues.category,
         artworks: artworks
       });
+  }).catch((err) =>{
+    res.render('search-category');
   })
   
 });
@@ -90,8 +91,6 @@ router.post('/new-art', function(req, res, next){
     }
   })
   .spread((artwork, created) => {
-
-    console.log(created);
     
     res.redirect(`/artworks/${artwork.id}`);
   })
