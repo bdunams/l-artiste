@@ -35,8 +35,8 @@ router.post('/', function(req, res, next) {
   // IF errors, render errors to user
   if(errors){
     console.log(errors);
-    res.render('error',{
-        errors: errors
+    return res.render('login',{
+        signUpErrors: errors
       });
   }
   // ELSE continue creating new user
@@ -66,19 +66,26 @@ router.post('/', function(req, res, next) {
         // IF successfully created new artist
         // redirect to artists page
         if(created){
-          res.redirect(`/artists/${ name }`);
+          req.login(artist, (err) =>{
+            if(err){
+              res.redirect('/');
+            }
+            req.flash('success_msg', 'Successfully logged in!');
+            res.redirect(`/artists/${ name }`);
+          });
+          
         }
         // ELSE render error page
         else{
-          res.render('error',{
+          res.render('login',{
             errors: 'An error occurred when trying to create your account! Try again'
           });
         }
         
-      })
+      });
 
     }
-    // else create new normal user account
+    // ELSE create new normal user account
     else{
 
       db.User.findOrCreate({
@@ -90,14 +97,18 @@ router.post('/', function(req, res, next) {
       })
       .spread((user, created) => {
 
-        // IF successfully created new artist
-        // redirect to artists page
+        // IF successfully created new user
+        // Login and redirect to the home page
         if(created){
-          res.redirect(`/`);
+          req.login(user, (err) =>{
+            req.flash('success_msg', 'Successfully logged in!');
+            res.redirect(`/`);
+          });
+          
         }
         // ELSE render error page
         else{
-          res.render('error',{
+          res.render('login',{
             errors: 'An error occurred when trying to create your account! Try again'
           });
         }

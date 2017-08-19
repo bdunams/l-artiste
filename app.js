@@ -15,6 +15,7 @@ let login = require('./routes/login');
 let logout = require('./routes/logout');
 let signup = require('./routes/signup');
 let search = require('./routes/search');
+let order = require('./routes/order')
 
 
 // Models
@@ -31,6 +32,16 @@ app.set('view engine', 'hbs');
 let authentication = require('./authentication/passport')(app);
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+
+// Global Variables
+app.use(function(req, res, next) {
+  res.locals.success_msg = req.flash('sucess_msg');
+  res.locals.error_msg = req.flash('error_msg');
+  res.locals.error = req.flash('error');
+  res.locals.user = req.user || null;
+  next()
+});
+
 // Middleware
 app.use(logger('dev'));
 app.use(bodyParser.json());
@@ -46,6 +57,9 @@ app.use('/search', search);
 app.use('/login', login);
 app.use('/logout', logout);
 app.use('/signup', signup);
+app.use('/cart', order);
+
+
 
 
 // catch 404 and forward to error handler
@@ -60,7 +74,6 @@ app.use(function(err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
-  res.locals.user = req.user || null;
 
   // render the error page
   res.status(err.status || 500);

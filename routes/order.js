@@ -3,49 +3,108 @@ const router = express.Router();
 
 const db = require("../models");
 
-// ADD item to the database
-router.post('/addtocart', function(req, res) {
-	db.Orders.create({
-		where: {
-			title: req.body.title,
-			price: req.body.price,
-			quantity: 1
-		}
-	});
-	res.redirect('/cart');
-});
 
 // GET order from the database
-router.get('/getcart', function(req, res) {
-	db.Orders.findOne({
+router.get('/', function(req, res) {
+  
+  if(req.user){
+      db.Orders.findAll({
+          where: {
+              UserId: req.user.id
+          }
+      }).then(function(cart) {
+
+          res.render('cart', 
+          {
+            cart: cart
+  //			user: req.user.name,
+  //			item: itemID,
+  //			title: title,
+  //			price: price,
+  //			quantity: 1
+          });
+      });
+  }
+  else{
+    res.render('cart')
+  }
+	
+});
+
+// ADD item to the database
+router.post('/addtocart', function(req, res) {
+  
+  // if user is logged in, send the items to their cart
+  if(req.user){
+    db.Orders.findOrCreate({
 		where: {
-			id: user.dataValues.id
+			item: req.body.title,
+			price: req.body.price,
+			quantity: 1,
+            UserId: req.user.id,
+            ArtistId: req.body.ArtistId || 1
 		}
-	}).then(function(cart) {
-		res.render('cart', 
-		{
-			user: user,
-			item: itemID,
-			title: title,
-			price: price,
-			quantity: 1
-		});
-	});
+	}).spread((order, created) => {
+        
+        // IF successfully added item to cart
+        if(created){
+          res.redirect(`/cart`);
+        }
+        // ELSE render error 
+        else{
+          res.render('error',{
+            errors: 'An error occurred when trying to create your account! Try again'
+          });
+        }
+        
+      });
+  }
+	
 });
 
-// Calculating the total amount of the cart
-router.get('/countproducts', function(req, res) {
-	db.sum('price').then(function(sum) {
-		res.render('cart');
-	});
-});
 
-// Checkout from the cart
+// ADD item to the database
 router.post('/checkout', function(req, res) {
-	db.Orders.destroy({ where: {}});
+  
+  // if user is logged in, send the items to their cart
+  if(req.user){
+    db.Transactions.findOrCreate({
+		where: {
+			item: req.body.title,
+			price: req.body.price,
+			address: '',
+            city: '',
+            state: '',
+            zipcode:''
+		}
+	}).spread((artist, created) => {
+        
+        // IF successfully created new artist
+        // redirect to artists page
+        if(created){
+          //res.redirect(`/cart`);
+          // success message
+          // process orders, then remove from table
+          db.Orders.destroy({
+            where:{
+              UserId: req.user.id
+            }
+          })
+        }
+        // ELSE render error 
+        else{
+          res.render('error',{
+            errors: 'An error occurred when trying to create your account! Try again'
+          });
+        }
+        
+      });
+  }
+	
 });
 
 
+module.exports = router;
 
 
 // CHECKOUT from the cart

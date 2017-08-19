@@ -23,7 +23,7 @@ router.get('/', function(req, res, next) {
 
 /* GET an artist by name */
 router.get('/:name', function(req, res, next) {
-  
+  // Search DB for an artist
   db.Artist.findOne({
     where: {
       name: req.params.name
@@ -33,14 +33,11 @@ router.get('/:name', function(req, res, next) {
     }
   }).then((artist) =>{
     console.log(artist)
-    
+    // Get that artist's artwork
     db.Artwork.findAll({
       where: {
         id: artist.dataValues.id
-      },
-//      include:{
-//        model: db.Rating
-//      }
+      }
     }).then((artworks) => {
     
     res.render('artists', 
@@ -53,6 +50,9 @@ router.get('/:name', function(req, res, next) {
       });
       
     });
+    // if an artist doesn't exist
+  }).catch((err) => {
+    res.redirect('/');
   }) 
 });
 

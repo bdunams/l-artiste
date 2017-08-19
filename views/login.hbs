@@ -1,10 +1,7 @@
-
-			<div class="columns-container">
-				<div id="columns" class="container">
 											
 <!-- Breadcrumb -->
 <div class="breadcrumb clearfix">
-	<a class="home" href="l-artiste-master/index.html" title="Return to Home"><i class="icon-home"></i></a>
+	<a class="home" href="/" title="Return to Home"><i class="icon-home"></i></a>
 			<span class="navigation-pipe">&gt;</span>
 						User Login
 			</div>
@@ -20,6 +17,13 @@
 	<!---->
 	<div class="row">
 		<div class="col-xs-12 col-sm-6">
+          
+          {{#if signUpErrors}}
+            
+            {{#each signUpErrors}}
+              <div class="alert alert-danger">{{this.msg}}</div>
+            {{/each}}
+          {{/if}}
 			<form action="/signup" method="post" id="create-account_form" class="box">
 				<h3 class="page-subheading">Create an account</h3>
 				<div class="form_content clearfix">
@@ -41,8 +45,8 @@
 						<label for="password">Confirm Password</label>
 						<input type="password" class="form-control" id="confirmPassword" name="confirmPassword"/>
 					</div>
-					<div class="checkbox">
-						  <label><input type="checkbox" name="userType" value="artist">Artist?</label>
+					<div class="form-group">
+						  <label for="account-type"> Artist Account <input  class="checkbox" type="checkbox"  id="account-type" name="userType" value="artist"></label>
 					</div>
 					<div class="submit">
 						<input type="hidden" class="hidden" name="back" value="my-account" />						<button class="btn btn-default button button-medium exclusive" type="submit" id="SubmitCreate" name="SubmitCreate">
@@ -57,6 +61,13 @@
 			</form>
 		</div>
 		<div class="col-xs-12 col-sm-6">
+          
+          {{#if error}}
+            
+              <div class="alert alert-danger">{{error}}</div>
+
+          {{/if}}
+          
 			<form action="/login" method="post" id="login_form" class="box">
 				<h3 class="page-subheading">Already signed up?</h3>
 				<div class="form_content clearfix">
@@ -81,6 +92,7 @@
 			</form>
 		</div>
 	</div>
+  <br>
 						</div><!-- #center_column -->
 										</div><!-- .row -->
 				</div><!-- #columns -->
