@@ -43,9 +43,10 @@ router.post('/', function(req, res, next) {
   else{
     
     // Hash Password with Bcrypt
-    let salt = bcrypt.genSaltSync(10);
-    let hash = bcrypt.hashSync(password, salt);
-    let securePassword = hash;
+//    let salt = bcrypt.genSaltSync(10);
+//    let hash = bcrypt.hashSync(password, salt);
+//    let securePassword = hash;
+    let securePassword = password;
 
   
     // if sign up type is artist

@@ -13,15 +13,15 @@ router.get('/', function(req, res) {
               UserId: req.user.id
           }
       }).then(function(cart) {
+        let total = 0;
+          cart.forEach((item) =>{
+            total += parseFloat(item.price);
+          })
 
           res.render('cart', 
           {
-            cart: cart
-  //			user: req.user.name,
-  //			item: itemID,
-  //			title: title,
-  //			price: price,
-  //			quantity: 1
+            cart: cart,
+            total: total
           });
       });
   }
@@ -70,30 +70,37 @@ router.post('/checkout', function(req, res) {
   if(req.user){
     db.Transactions.findOrCreate({
 		where: {
-			item: req.body.title,
-			price: req.body.price,
-			address: '',
-            city: '',
-            state: '',
-            zipcode:''
+			description: 'Completed Transaction',
+			total: '1000',
+			address: '123',
+            city: 'Cleveland',
+            state: 'Ohio',
+            zipCode:'44243',
+            UserId: req.user.id,
+            ArtistId: 1,
+            ArtworkId: 1,
+            OrderId:1
 		}
-	}).spread((artist, created) => {
+	}).spread((transaction, created) => {
         
         // IF successfully created new artist
         // redirect to artists page
         if(created){
-          //res.redirect(`/cart`);
           // success message
           // process orders, then remove from table
           db.Orders.destroy({
             where:{
               UserId: req.user.id
             }
+          }).then(function(){
+            res.render(`cart`,{
+              success_msg: 'Transaction Processed!'
+            });
           })
         }
         // ELSE render error 
         else{
-          res.render('error',{
+          res.render('cart',{
             errors: 'An error occurred when trying to create your account! Try again'
           });
         }

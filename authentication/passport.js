@@ -55,9 +55,9 @@ module.exports = function(app){
       console.log('------------LOGIN----------------')
       
       db.User.findOne({where: { email: email }}).then(function(user) {
-        let hash = bcrypt.hashSync(password, salt);
-        console.log(bcrypt.compareSync(user.password, app.locals.hash));
-        console.log(user.password, app.locals.hash);
+//        let hash = bcrypt.hashSync(password, salt);
+//        console.log(bcrypt.compareSync(user.password, app.locals.hash));
+//        console.log(user.password, app.locals.hash);
         
         if (!user) {
           return done(null, false, { message: 'Incorrect email.' });
