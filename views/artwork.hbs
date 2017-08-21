@@ -1,6 +1,11 @@
 <div class="row">
   <div class="col-md-6">
-    <img style="max-width: 500px" class="art-photo" src="{{artwork.media}}">
+    {{#if artwork.media}}
+      <img style="max-width: 500px" class="art-photo" src="{{artwork.media}}">
+    {{else}}
+        <img style="max-width:280px" src="http://via.placeholder.com/500x600">
+    {{/if}}
+    
   </div>
   <div class="col-md-6">
 

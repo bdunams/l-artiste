@@ -20,7 +20,15 @@
   {{#each artworks}}
 
     <div class="col-xs-12 col-md-3">
-      <a href="/artworks/{{this.id}}"><img style="max-width:280px" class="art-photo" src="{{this.media}}"></a>
+      {{#if this.media}}
+        <a href="/artworks/{{this.id}}">
+          <img style="max-width:280px" src="{{this.media}}">
+        </a>
+      {{else}}
+        <a href="/artworks/{{this.id}}">
+          <img style="max-width:280px" src="http://via.placeholder.com/280x320">
+        </a>
+      {{/if}}
 
       <br>
       <h4 class="text-center">
