@@ -15,9 +15,7 @@ const db = require("../models");
 
 // Authentication Middleware
 module.exports = function(app){
-  let hash = bcrypt.hashSync('brian', salt);
-  app.locals.hash = hash;
-  console.log(app.locals.hash)
+  
   app.use(session({ 
     secret: 'secret',
     saveUninitialized: true,

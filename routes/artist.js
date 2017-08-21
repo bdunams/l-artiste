@@ -34,11 +34,6 @@ router.get('/:name', function(req, res, next) {
   }).then((artist) =>{
     console.log(artist)
     // Get that artist's artwork
-    db.Artwork.findAll({
-      where: {
-        id: artist.dataValues.id
-      }
-    }).then((artworks) => {
     
     res.render('artists', 
       {
@@ -46,14 +41,14 @@ router.get('/:name', function(req, res, next) {
       
         artist: artist,
                        
-        artworks: artworks
+        artworks: artist.Artworks
       });
       
-    });
     // if an artist doesn't exist
   }).catch((err) => {
     res.redirect('/');
-  }) 
+  });
+  
 });
 
 module.exports = router;
