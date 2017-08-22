@@ -6,7 +6,7 @@
 
 <!-- Carousel-->
 <div class="row">
-  <div class="container slider">
+  <div class="container slider col-xs-12">
     <div id="myCarousel" class="carousel slide sliderfilter" data-ride="carousel">
       <!-- Indicators -->
       <ol class="carousel-indicators">
@@ -50,18 +50,19 @@
 <br>
 <hr>
 
+<div class="container">
+  <h3>Top Artworks</h3>
+  {{#each artworks}}
 
-<h3>Top Artworks</h3>
-{{#each artworks}}
+  <div class="col-xs-12 col-md-3 text-center">
+    {{#if this.media}}
+      <a href="/artworks/{{this.id}}"><img style="max-width:250px; padding: 20px 0px;" class="art-photo" src="{{this.media}}"></a>
+    {{else}}
+      <a href="/artworks/{{this.id}}">
+        <img style="max-width:250px; padding: 20px 0px;" src="http://via.placeholder.com/250x320">
+      </a>
+    {{/if}}
+  </div>
 
-<div class="col-xs-12 col-md-3 text-center">
-  {{#if this.media}}
-    <a href="/artworks/{{this.id}}"><img style="max-width:250px; padding: 20px 0px;" class="art-photo" src="{{this.media}}"></a>
-  {{else}}
-    <a href="/artworks/{{this.id}}">
-      <img style="max-width:250px; padding: 20px 0px;" src="http://via.placeholder.com/250x320">
-    </a>
-  {{/if}}
+  {{/each}}
 </div>
-
-{{/each}}
