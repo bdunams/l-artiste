@@ -16,6 +16,7 @@ const db = require("../models");
 // Authentication Middleware
 module.exports = function(app){
   
+  // Initialize Express Sessions
   app.use(session({ 
     secret: 'secret',
     saveUninitialized: true,
@@ -52,18 +53,22 @@ module.exports = function(app){
     function(email, password, done) {
       console.log('------------LOGIN----------------')
       
-      db.User.findOne({where: { email: email }}).then(function(user) {
-//        let hash = bcrypt.hashSync(password, salt);
-//        console.log(bcrypt.compareSync(user.password, app.locals.hash));
-//        console.log(user.password, app.locals.hash);
+      db.User.findOne({where: { email: email }})
+        .then(function(user) {
         
+        // if user could not be found
         if (!user) {
-          return done(null, false, { message: 'Incorrect email.' });
+          return done(null, false, { message: 'Incorrect email or password.' });
         }
-        if (user.password !== password) {
-          return done(null, false, { message: 'Incorrect password.' });
+        
+        // if entered password doesn't match stored password
+        if (!db.User.checkPassword(password, user.password)) {
+          return done(null, false, { message: 'Incorrect password or email.' });
         }
+        
+        // if login attempt has been successful
         return done(null, user);
+        
       }).catch(err => {
         
         console.log(err, " ...");

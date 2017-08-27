@@ -21,7 +21,7 @@ router.get('/', function(req, res, next) {
   
 });
 
-/* GET an artist by name */
+/* GET an Artist by Name */
 router.get('/:name', function(req, res, next) {
   // Search DB for an artist
   db.Artist.findOne({

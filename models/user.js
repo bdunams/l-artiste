@@ -1,3 +1,5 @@
+const bcrypt = require('bcryptjs');
+
 module.exports = function(sequelize, DataTypes) {
   var User = sequelize.define("User", {
     name: {
@@ -33,6 +35,21 @@ module.exports = function(sequelize, DataTypes) {
       onDelete: "cascade"
     });
   };
+  
+  // Create Secure Password with bcryptjs
+  User.hashPassword = (userPassword) => {
+
+    let salt = bcrypt.genSaltSync(10);
+    let hashedPassword = bcrypt.hashSync(userPassword, salt);
+
+    return hashedPassword;
+  }
+  
+  // Check entered password with db, return boolean
+  User.checkPassword = (enteredPassword, dbHash) => {
+
+    return bcrypt.compareSync(enteredPassword, dbHash);
+  }
 
   return User;
 };

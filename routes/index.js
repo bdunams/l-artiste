@@ -5,12 +5,9 @@ const db = require("../models");
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  
+  // get the top 8 artworks from db
   db.Artwork.findAll({
     limit: 8,
-    include:{
-      model: db.Artist
-    },
     order:[
       ['rating', 'DESC']
     ]
@@ -24,9 +21,26 @@ router.get('/', function(req, res, next) {
   
 });
 
+// GET Account Settings Page
 router.get('/user/account', function(req, res, next) {
   
   if(req.user){
+    res.render('account');
+  }
+  else{
+    res.redirect('/');
+  }
+    
+});
+
+// UPDATE User Password
+router.post('/user/update-password', function(req, res, next) {
+  
+  if(req.user){
+    
+    let password = req.body.password;
+    let confirmPassword = req.body.confirmPassword;
+    
     res.render('account');
   }
   else{

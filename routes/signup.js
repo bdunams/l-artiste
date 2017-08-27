@@ -1,7 +1,5 @@
 const express = require('express');
 const router = express.Router();
-const bcrypt = require('bcryptjs');
-
 
 const db = require("../models");
 
@@ -42,17 +40,13 @@ router.post('/', function(req, res, next) {
   // ELSE continue creating new user
   else{
     
-    // Hash Password with Bcrypt
-//    let salt = bcrypt.genSaltSync(10);
-//    let hash = bcrypt.hashSync(password, salt);
-//    let securePassword = hash;
-    let securePassword = password;
+    // Hash Password with Bcryptjs
+    let securePassword = db.User.hashPassword(password);
 
   
     // if sign up type is artist
     // create new artist account
     if(req.body.userType === 'artist'){
-
 
       db.Artist.findOrCreate({
         where: {
@@ -67,6 +61,7 @@ router.post('/', function(req, res, next) {
         // IF successfully created new artist
         // redirect to artists page
         if(created){
+          
           req.login(artist, (err) =>{
             if(err){
               res.redirect('/');
@@ -78,9 +73,11 @@ router.post('/', function(req, res, next) {
         }
         // ELSE render error page
         else{
+          
           res.render('login',{
             errors: 'An error occurred when trying to create your account! Try again'
           });
+          
         }
         
       });
@@ -115,6 +112,7 @@ router.post('/', function(req, res, next) {
         }
 
       })
+      
     }
   
   }
