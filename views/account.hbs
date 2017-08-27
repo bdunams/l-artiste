@@ -19,23 +19,33 @@
 		<div class="col-xs-12 col-sm-6">
           
           
+          {{#if error_msg}}
+            
+            {{#each error_msg}}
+              <div class="alert alert-danger">{{this.msg}}</div>
+            {{/each}}
+          {{/if}}
           
-			<form action="#" method="post" id="create-account_form" class="box">
+          {{#if success_msg}}
+              <div class="alert alert-success">{{success_msg}}</div>
+          {{/if}}
+          
+			<form action="/user/update-password" method="post" id="create-account_form" class="box">
 				<h3 class="page-subheading">Update Your Settings</h3>
 				<div class="form_content clearfix">
 					<p>Update your password</p>
 					<div class="alert alert-danger" id="create_account_error" style="display:none"></div>
 					<div class="form-group">
 						<label for="password">Old Password</label>
-						<input type="password" class="form-control" id="password" name="password"/>
+						<input placeholder="Old Password" type="password" class="form-control" id="oldPassword" name="oldPassword"/>
 					</div>
                     <div class="form-group">
 						<label for="password">New Password</label>
-						<input type="password" class="form-control" id="password" name="password"/>
+						<input placeholder="New Password"  type="password" class="form-control" id="password" name="password"/>
 					</div>
                     <div class="form-group">
 						<label for="password">Confirm Password</label>
-						<input type="password" class="form-control" id="confirmPassword" name="confirmPassword"/>
+						<input placeholder="New Password" type="password" class="form-control" id="confirmPassword" name="confirmPassword"/>
 					</div>
 					<div class="submit">
 						<input type="hidden" class="hidden" name="back" value="my-account" />						<button class="btn btn-default button button-medium exclusive" type="submit" id="SubmitCreate" name="SubmitCreate">
